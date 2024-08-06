@@ -155,7 +155,6 @@ def process_image_with_tesseract(pdf_path):
         img_blobs.append(page.make_blob('jpeg'))
 
     processed_images = []
-
     for img_blob in img_blobs:
         im = Image.open(io.BytesIO(img_blob))
         text = pytesseract.image_to_string(im, lang='eng')
@@ -186,7 +185,7 @@ def process_image_with_tesseract(pdf_path):
             output_pdf_path, save_all=True, append_images=processed_images[1:], resolution=100.0, quality=95
         )
 
-def process_image(pdf_path, output_pdf_path):
+def process_image(pdf_path, output_pdf_path): # Haar classifier for Face-Blur
     pdf = wi(filename=pdf_path, resolution=300)
     pdf_img = pdf.convert('jpeg')
     face_classifier_frontal = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
